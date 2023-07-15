@@ -3,6 +3,8 @@
 
 # include <iostream>
 # include <ctime>
+# include <typeinfo>
+# include <cstdlib>
 
 class Base
 {
