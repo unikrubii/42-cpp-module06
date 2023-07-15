@@ -37,7 +37,7 @@ void ScalarConverter::assertValue( bool condition ) {
 }
 
 bool ScalarConverter::isChar( const std::string &arg ) {
-	if (arg.length() == 1 && std::isprint( arg[0] ) )
+	if ( arg.length() == 1 && std::isprint( arg[0] ) )
 		return true;
 	return false;
 }
@@ -85,6 +85,8 @@ void ScalarConverter::printChar( const std::string &arg ) {
 void ScalarConverter::printInt( const std::string &arg ) {
 	std::cout << "int: ";
 	try {
+		assertValue( arg != "nan" && arg != "nanf" && arg != "inf" && arg != "inff" && \
+			arg != "-nan" && arg != "-nanf" && arg != "-inf" && arg != "-inff" );
 		long num = std::atol( arg.c_str() );
 		assertValue( num <= std::numeric_limits<int>::max() );
 		assertValue( num >= std::numeric_limits<int>::min() );
@@ -115,6 +117,7 @@ void ScalarConverter::printFloat( const std::string &arg ) {
 	}
 	try {
 		float num = std::atof( arg.c_str() );
+		assertValue( num == 0 && arg == ".f" );
 		assertValue( num <= std::numeric_limits<float>::max() );
 		if ( std::isnan( num ) || arg == "nan" ) {
 			std::cout << "nanf" << std::endl;
@@ -159,6 +162,7 @@ void ScalarConverter::printDouble( const std::string &arg ) {
 	}
 	try {
 		double num = std::atof( arg.c_str() );
+		assertValue( num == 0 && arg == ".f" );
 		assertValue( num <= std::numeric_limits<double>::max() );
 		if ( std::isnan( num ) || arg == "nan" ) {
 			std::cout << "nan" << std::endl;
