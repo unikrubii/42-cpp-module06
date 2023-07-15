@@ -51,9 +51,10 @@ void ScalarConverter::printChar( const std::string &arg ) {
 	// arg is ascii number
 	try {
 		int pos = arg.find('.');
-		assertValue( !pos || arg[ pos + 1] == '0' );
-		assertValue( std::atoi( arg.c_str() ) <= 128 );
-		int a = std::atoi( arg.c_str() ) + '\0';
+		int asciiNum = std::atoi( arg.c_str() );
+		assertValue( asciiNum >= 0 && asciiNum <= 128 );
+		assertValue ( !pos || pos == -1 );
+		int a = std::atoi( arg.c_str() );
 		char c = static_cast<char>( a );
 		if ( std::isprint( c ) ) {
 			std::cout << "'" << c << "'" << std::endl;
@@ -112,17 +113,6 @@ void ScalarConverter::printFloat( const std::string &arg ) {
 		}
 		return ;
 	}
-	// if ( arg == "inf" || arg == "inff" ) {
-	// 	if ( arg[0] == '-' ) {
-	// 		std::cout << "-";
-	// 	}
-	// 	std::cout << "inff" << std::endl;
-	// 	return ;
-	// }
-	// else if ( arg == "nan" || arg == "nanf" ) {
-	// 	std::cout << "nanf" << std::endl;
-	// 	return ;
-	// }
 	try {
 		float num = std::atof( arg.c_str() );
 		assertValue( num <= std::numeric_limits<float>::max() );
