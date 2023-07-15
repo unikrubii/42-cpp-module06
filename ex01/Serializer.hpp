@@ -4,10 +4,10 @@
 # include <iostream>
 
 typedef struct data {
-	int		n;
-	char	c;
-	bool	b;
-	std::string s;
+	int			n;
+	char		c;
+	bool		b;
+	std::string	s;
 }	Data;
 
 class Serializer
